@@ -3,6 +3,8 @@
 
 displays 4 graphs of the angle of a pendulum with time
 
+![graph](graph.png)
+
 ## Usage
 
 python script.py [options]
