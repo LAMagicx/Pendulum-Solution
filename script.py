@@ -6,7 +6,7 @@ background_colour = '#000000'
 text_colour = '#EEEEEE'
 
 def Create():
-    returned = os.system('python shower.py --file graph.png  --G {0} --L {1} --M {2} --K {3} --T {4} --N {5} --A {6} --S {7}'.format(
+    returned = os.system('python shower.py --file graph.png  -G {0} -L {1} -M {2} -K {3} -T {4} -N {5} -A {6} -S {7}'.format(
                                                                                             float(G_var.get()), 
                                                                                             float(L_var.get()),
                                                                                             float(M_var.get()),

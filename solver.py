@@ -31,6 +31,5 @@ def equation3(fun, args, theta_0=[1, 1], t_max=np.pi*2, n=50):
 
 def equation4(fun, args, theta_0=[1, 1], t_max=np.pi*2, n=50):
     t_span = np.linspace(0, t_max, n-3)
-    theta = fun(t_span, theta_0[0])
-    print(theta)
+    theta = fun(t_span, theta_0)
     return t_span, theta
