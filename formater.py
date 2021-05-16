@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def multiple_formatter(denominator=2, number=np.pi, latex='\pi'):
+def multiple_formatter(denominator=3, number=np.pi, latex='\pi'):
     def gcd(a, b):
         while b:
             a, b = b, a%b
