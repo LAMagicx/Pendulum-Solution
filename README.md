@@ -5,6 +5,20 @@ displays 4 graphs of the angle of a pendulum with time
 
 ![graph](graph.png)
 
+## Installation
+
+> git clone https://github.com/LAMagicx/Pendulum-Solution
+
+> cd Pendulum-Solution
+
+required libaries : 
+ - numpy
+ - scipy
+ - matplotlib
+ - pillow (PIL)
+ - argparse
+ - tkinter
+
 ## Usage
 
 to launch user interface
