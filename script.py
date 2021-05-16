@@ -2,6 +2,8 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import os, time, sys
 
+CONFIG = "values.conf"
+
 """
 Code for the user interface
 uses tkinter
@@ -13,6 +15,14 @@ uses tkinter
 background_colour = '#000000'
 text_colour = '#EEEEEE'
 
+def getValue(key, index):
+    with open(CONFIG, "r") as f:
+        lines = f.readlines()
+
+    for l in lines:
+        if key in l:
+            return l[l.index("=")+2:].split(" ")[index]
+            
 def main():
     def Create():
         # create the graph from the given parameters
@@ -33,35 +43,35 @@ def main():
         image.image = img2  
 
     def slide_g(arg):
-        select = 'G: ' + str(G_var.get())
+        select = 'Gavity: ' + str(G_var.get())
         G_Value.config(text=select)
 
     def slide_L(arg):
-        select = 'L: ' + str(L_var.get())
+        select = 'Length: ' + str(L_var.get())
         L_Value.config(text=select)
 
     def slide_M(arg):
-        select = 'M: ' + str(M_var.get())
+        select = 'Mass: ' + str(M_var.get())
         M_Value.config(text=select)
 
     def slide_K(arg):
-        select = 'K: ' + str(K_var.get())
+        select = 'Resistance: ' + str(K_var.get())
         K_Value.config(text=select)
 
     def slide_T(arg):
-        select = 'T: ' + str(T_var.get())
+        select = 'Time: ' + str(T_var.get())
         T_Value.config(text=select)
 
     def slide_N(arg):
-        select = 'N: ' + str(N_var.get())
+        select = 'Interations: ' + str(N_var.get())
         N_Value.config(text=select)
 
     def slide_A(arg):
-        select = 'A: ' + str(A_var.get())
+        select = 'Angle: ' + str(A_var.get())
         A_Value.config(text=select)
 
     def slide_S(arg):
-        select = 'S: ' + str(S_var.get())
+        select = 'Speed: ' + str(S_var.get())
         S_Value.config(text=select)
 
     def Open():
@@ -98,9 +108,9 @@ def main():
 
     G_var = tk.DoubleVar()
 
-    G_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0, to=25, resolution=0.1, orient='horizontal', command=slide_g, variable=G_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    G_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("G", 1) , to=getValue("G", 2), resolution=getValue("G", 3), orient='horizontal', command=slide_g, variable=G_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     G_slider.grid(row=0, column=0, sticky='S')
-    G_slider.set(9.81)
+    G_slider.set(getValue("G", 0))
 
 
     G_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -108,9 +118,9 @@ def main():
 
     L_var = tk.DoubleVar()
 
-    L_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0.1, to=10, resolution=0.1, orient='horizontal', command=slide_L, variable=L_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    L_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ =getValue("L", 1), to=getValue("L", 2), resolution=getValue("L", 3), orient='horizontal', command=slide_L, variable=L_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     L_slider.grid(row=2, column=0, sticky='S')
-    L_slider.set(1)
+    L_slider.set(getValue("L", 0))
 
 
     L_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -118,9 +128,9 @@ def main():
 
     M_var = tk.DoubleVar()
 
-    M_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0.1, to=100, resolution=0.1, orient='horizontal', command=slide_M, variable=M_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    M_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("M", 1), to=getValue("M", 2), resolution=getValue("M", 3), orient='horizontal', command=slide_M, variable=M_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     M_slider.grid(row=4, column=0, sticky='S')
-    M_slider.set(1)
+    M_slider.set(getValue("M", 0))
 
 
     M_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -128,9 +138,9 @@ def main():
 
     K_var = tk.DoubleVar()
 
-    K_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0, to=10, resolution=0.1, orient='horizontal', command=slide_K, variable=K_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    K_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("K", 1), to=getValue("K", 2), resolution=getValue("K", 3), orient='horizontal', command=slide_K, variable=K_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     K_slider.grid(row=6, column=0, sticky='S')
-    K_slider.set(0)
+    K_slider.set(getValue("K", 0))
 
 
     K_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -138,9 +148,9 @@ def main():
 
     T_var = tk.DoubleVar()
 
-    T_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0, to=1000, resolution=0.1, orient='horizontal', command=slide_T, variable=T_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    T_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("T", 1), to=getValue("T", 2), resolution=getValue("T", 3), orient='horizontal', command=slide_T, variable=T_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     T_slider.grid(row=8, column=0, sticky='S')
-    T_slider.set(6.28)
+    T_slider.set(getValue("T", 0))
 
 
     T_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -148,9 +158,9 @@ def main():
 
     N_var = tk.IntVar()
 
-    N_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = 0, to=500, resolution=1, orient='horizontal', command=slide_N, variable=N_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    N_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("N", 1), to=getValue("N", 2), resolution=getValue("N", 3), orient='horizontal', command=slide_N, variable=N_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     N_slider.grid(row=10, column=0, sticky='S')
-    N_slider.set(50)
+    N_slider.set(getValue("N", 0))
 
 
     N_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -158,9 +168,9 @@ def main():
 
     A_var = tk.DoubleVar()
 
-    A_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = -1.57, to=1.57, resolution=0.1, orient='horizontal', command=slide_A, variable=A_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    A_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("A", 1), to=getValue("A", 2), resolution=getValue("A", 3), orient='horizontal', command=slide_A, variable=A_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     A_slider.grid(row=12, column=0, sticky='S')
-    A_slider.set(1.8)
+    A_slider.set(getValue("A", 0))
 
 
     A_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
@@ -168,9 +178,9 @@ def main():
 
     S_var = tk.DoubleVar()
 
-    S_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = -10, to=10, resolution=0.1, orient='horizontal', command=slide_S, variable=S_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
+    S_slider = tk.Scale(sidebar, bg=background_colour, fg=text_colour, from_ = getValue("S", 1), to=getValue("S", 2), resolution=getValue("S", 3), orient='horizontal', command=slide_S, variable=S_var, showvalue=0, activebackground="#FFFFFF", highlightbackground=background_colour, highlightcolor=background_colour, sliderlength=20, length=180)
     S_slider.grid(row=14, column=0, sticky='S')
-    S_slider.set(1)
+    S_slider.set(getValue("S", 0))
 
 
     S_Value = tk.Label(sidebar, bg=background_colour, fg=text_colour)
