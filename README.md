@@ -7,9 +7,13 @@ displays 4 graphs of the angle of a pendulum with time
 
 ## Usage
 
-python script.py [options]
+to launch user interface
+python script.py [-h]
 
- - --file path_to_graph
+to generate a graph
+python shower.py [options]
+
+- --file path_to_graph
  - -G float Gravity constant
  - -L float Length of chord
  - -M float Mass of pendulum

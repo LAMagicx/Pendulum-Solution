@@ -14,7 +14,11 @@ displays 4 graphs of the angle of a pendulum with time
 
 ## Usage
 
-python script.py [options]
+to launch User interface
+python script.py [-h]
+
+to generate graph
+python shower.py [options]
 
  - --file path_to_graph
  - -G float Gravity constant
