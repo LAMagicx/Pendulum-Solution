@@ -22,10 +22,10 @@ required libaries :
 ## Usage
 
 to launch user interface
-python script.py [-h]
+> python script.py [-h]
 
 to generate a graph
-python shower.py [options]
+> python shower.py [options]
 
 - --file path_to_graph
  - -G float Gravity constant
