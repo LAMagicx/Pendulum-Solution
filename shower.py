@@ -64,7 +64,7 @@ def generateGraph(imgfile, G, L, M, K, T, N, A, S):
     generatePlot(G, L, M, K, T, N, A, S, equation1, "RK43", 'w', fun)
     generatePlot(G, L, M, K, T, N, A, S, equation2, "RK1", 'b', fun)
     generatePlot(G, L, M, K, T, N, A, S, equation3, "RK2", 'r', fun)
-    generatePlot(G, L, M, K, T, N, A, S, equation4, "exacte", 'g', lambda t, y: np.exp(-K/M*t/2) * (y[0] * np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (y[1] + K/M*y[0]/2)/(np.sqrt(G/L - ((K/M)**2)/4))*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
+    generatePlot(G, L, M, K, T, N, A, S, equation4, "exact", 'g', lambda t, y: np.exp(-K/M*t/2) * (y[0] * np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (y[1] + K/M*y[0]/2)/(np.sqrt(G/L - ((K/M)**2)/4))*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
     
     plt.title("Motion of a Pendulum", loc="left")
     plt.xlabel("time  s", loc="left")
