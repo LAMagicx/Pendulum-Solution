@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import argparse
+from script import getValue
+from formater import multiple_formatter
 
 def help():
     print("""
@@ -59,25 +61,33 @@ def split_Y(Y, T):
 # function that generates each graph
 def generateGraph(imgfile, G, L, M, K, T, N, A, S):
     plt.style.use('dark_background')
-    generatePlot(G, L, M, K, T, N, A, S, equation1, 'w', fun)
-    generatePlot(G, L, M, K, T, N, A, S, equation2, 'b', fun)
-    generatePlot(G, L, M, K, T, N, A, S, equation3, 'r', fun)
-    generatePlot(G, L, M, K, T, N, A, S, equation4, 'g', lambda t, y: y[0] * np.exp(-K/M*t/2) * (np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (K/M)/(np.sqrt(G/L - ((K/M)**2)/4)*2)*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
+    generatePlot(G, L, M, K, T, N, A, S, equation1, "RK43", 'w', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation2, "RK1", 'b', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation3, "RK2", 'r', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation4, "exacte", 'g', lambda t, y: np.exp(-K/M*t/2) * (y[0] * np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (y[1] + K/M*y[0]/2)/(np.sqrt(G/L - ((K/M)**2)/4))*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
     
+    plt.title("Motion of a Pendulum", loc="left")
+    plt.xlabel("time  s", loc="left")
+    plt.ylabel("angle  rad", loc="bottom")
+    plt.legend()
+    ax = plt.gca()
+    ax.xaxis.set_major_locator(plt.MultipleLocator())
+    ax.xaxis.set_minor_locator(plt.MultipleLocator())
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(multiple_formatter()))
 
     plt.savefig(imgfile)
 
 
 
 # function that plots each graph
-def generatePlot(G, L, M, K, T, N, A, S, eq, c, fun):
+def generatePlot(G, L, M, K, T, N, A, S, eq, lb, c, fun):
     X, Y = eq(fun, (G, L, M, K), t_max=T, n=N, theta_0=np.array([A, S]))
     splits = split_Y(Y, X)
     for i in range(1, len(splits)-1):
         i1 = splits[i-1]
         i2 = splits[i]
         i3 = splits[i+1]
-        plt.plot(X[i1:i2], Y[i1:i2], c)
+        plt.plot(X[i1:i2], Y[i1:i2], c, label=lb)
         plt.plot(X[i2:i3], Y[i2:i3], c)
 
 
@@ -103,15 +113,16 @@ def main():
 
     args = parser.parse_args()
 
-    imgfile = 'graph.png'
-    G = 9.81
-    L = 1
-    M = 1
-    K = 0
-    T = 6.28
-    N = 50
-    A = 1.8
-    S = 1
+    imgfile = "graph.png"
+    G = float(getValue("G", 0))
+    L = float(getValue("L", 0))
+    M = float(getValue("M", 0))
+    K = float(getValue("K", 0))
+    T = float(getValue("T", 0))
+    N = int(getValue("N", 0))
+    A = float(getValue("A", 0))
+    S = float(getValue("S", 0))
+
 
     if args.H:
         help()

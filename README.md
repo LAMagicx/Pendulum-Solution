@@ -19,10 +19,5 @@ python script.py [options]
  - -A float Initial angle
  - -S float Initial speed
 
-The default values can be modifed in default.conf
+The default values and ranges can be modifed in values.conf
 
-
-todo:
- - add config file for default values and range
-
-    
