@@ -32,6 +32,7 @@ todo:
 
     """)
 
+# the function that describes the motion of a pendulum 
 def fun(t, theta, g=9.81, l=1, m=1, k=0):
     theta_1 = theta[0]
     theta_2 = theta[1]
@@ -41,7 +42,7 @@ def fun(t, theta, g=9.81, l=1, m=1, k=0):
 
     return np.array([d_theta_1, d_theta_2])
 
-
+# a function that splits the graph when the angle depasses the top so that it stays betwwen -pi and pi
 def split_Y(Y, T):
     acc = 100
     indexes = [0, 1]
@@ -55,15 +56,21 @@ def split_Y(Y, T):
     return indexes
 
 
+# function that generates each graph
 def generateGraph(imgfile, G, L, M, K, T, N, A, S):
     plt.style.use('dark_background')
-    generatePlot(imgfile, G, L, M, K, T, N, A, S, equation1, 'w', fun)
-    generatePlot(imgfile, G, L, M, K, T, N, A, S, equation2, 'b', fun)
-    generatePlot(imgfile, G, L, M, K, T, N, A, S, equation3, 'r', fun)
-    generatePlot(imgfile, G, L, M, K, T, N, A, S, equation4, 'g', lambda t, y: y[0] * np.exp(-K/M*t/2) * (np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (K/M)/(np.sqrt(G/L - ((K/M)**2)/4)*2)*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
+    generatePlot(G, L, M, K, T, N, A, S, equation1, 'w', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation2, 'b', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation3, 'r', fun)
+    generatePlot(G, L, M, K, T, N, A, S, equation4, 'g', lambda t, y: y[0] * np.exp(-K/M*t/2) * (np.cos(np.sqrt(G/L - ((K/M)**2)/4)*t) + (K/M)/(np.sqrt(G/L - ((K/M)**2)/4)*2)*np.sin(np.sqrt(G/L - ((K/M)**2)/4)*t)))
+    
+
+    plt.savefig(imgfile)
 
 
-def generatePlot(imgfile, G, L, M, K, T, N, A, S, eq, c, fun):
+
+# function that plots each graph
+def generatePlot(G, L, M, K, T, N, A, S, eq, c, fun):
     X, Y = eq(fun, (G, L, M, K), t_max=T, n=N, theta_0=np.array([A, S]))
     splits = split_Y(Y, X)
     for i in range(1, len(splits)-1):
@@ -73,9 +80,8 @@ def generatePlot(imgfile, G, L, M, K, T, N, A, S, eq, c, fun):
         plt.plot(X[i1:i2], Y[i1:i2], c)
         plt.plot(X[i2:i3], Y[i2:i3], c)
 
-    plt.savefig(imgfile)
 
-
+# main function that parses the command line for the values
 def main():
     descript = "Testing"
     parser = argparse.ArgumentParser(
